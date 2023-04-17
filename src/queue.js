@@ -27,7 +27,7 @@ class Queue {
 } 
 
   getUnderlyingList() {
-    return queue
+    return this.head
   }
 
   enqueue(value) {
