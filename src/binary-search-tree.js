@@ -41,32 +41,98 @@ function addNewData(currentNode, data){
 }
     }
   
+    has(data) {
+      if(!BSTNode){return false} else 
+      return checkIsThere(this.treeRoot, data)   
+      function checkIsThere(currentNode, data){
+        if (currentNode.data===data){return true}
+        if(currentNode.left){if(currentNode.left.data===data){return true}} 
+        if(currentNode.right){if(currentNode.right.data===data){return true}}
+        if ((currentNode.left)&&(currentNode.right)){return (checkIsThere(currentNode.left, data)||(checkIsThere(currentNode.right, data)))}
+        if(currentNode.left){return checkIsThere(currentNode.left, data)}
+        if(currentNode.right){return checkIsThere(currentNode.right, data)}
+          return false
+      }
+      }
+  
+    find(data) {
+      if(!BSTNode){return null} else 
+      return checkIsThere(this.treeRoot, data)   
+      function checkIsThere(currentNode, data){
+        if (currentNode.data===data){return currentNode}
+        console.log(currentNode, currentNode.left, currentNode.right)
+        if(currentNode.left){if(currentNode.left.data===data){return currentNode.left}} 
+        if(currentNode.right){if(currentNode.right.data===data){return currentNode.right}}
+        if ((currentNode.left)&&(currentNode.right)){return (checkIsThere(currentNode.left, data)||(checkIsThere(currentNode.right, data)))}
+        if(currentNode.left){return checkIsThere(currentNode.left, data)}
+        if(currentNode.right){return checkIsThere(currentNode.right, data)}
+          return null
+      }
+    }
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+    min() {
+      if(!BSTNode){return null} else 
+      return findMin(this.treeRoot)   
+      function findMin(currentNode){
+        if (currentNode.left){return findMin(currentNode.left)} else{
+    return currentNode.data
+        }
+      }
+    }
+  
+    max() {
+      if(!BSTNode){return null} else 
+      return findMax(this.treeRoot)   
+      function findMax(currentNode){
+        if (currentNode.right){return findMax(currentNode.right)} else{
+    return currentNode.data
+        }
+      }
+    }
 
-  find(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-
-  remove(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-
-  min() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-
-  max() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-}
+    remove(data) {
+      if(this.has(data)){
+        let neededToRemoveNode;
+        findNode(this.treeRoot, data, BSTNode)
+          function findNode(currentNode, data, previousNode){
+          if (currentNode.data===data){neededToRemoveNode=previousNode; return}
+            if (currentNode.left) {findNode(currentNode.left, data, currentNode)}
+           if (currentNode.right) {findNode(currentNode.right, data,currentNode)}
+          
+            return null}
+  
+        if (!(neededToRemoveNode.left || neededToRemoveNode.right)) { 
+          if (data<neededToRemoveNode.data) {delete neededToRemoveNode.left} else {
+            delete neededToRemoveNode.right
+          }
+        return} 
+        if (neededToRemoveNode.left) {
+  
+          let dataMax=findMax(neededToRemoveNode.left)   
+          function findMax(currentNode){
+            if (currentNode.right){return findMax(currentNode.right)} else{
+        return currentNode.data
+            }
+          }
+          
+          let neededToRemoveNode2;
+          findNode2(neededToRemoveNode.left, dataMax, neededToRemoveNode)
+            function findNode2(currentNode, data, previousNode){
+            if (currentNode.data===data){ neededToRemoveNode2=previousNode; return}
+              if (currentNode.left) {findNode(currentNode.left, data, currentNode)}
+             if (currentNode.right) {findNode(currentNode.right, data,currentNode)}
+            
+              return null}
+  
+          delete neededToRemoveNode2.right
+          neededToRemoveNode.data=dataMax
+        return}
+      }
+    }
+           
+          
+        
+      }
 
 module.exports = {
   BinarySearchTree
